@@ -37,3 +37,8 @@
 .foodpic:hover{
     box-shadow: -2px -2px 15px black;
 }
+@media(max-width: 1000px){
+    .calendar_header{
+        font-size: 1em;
+    }
+}

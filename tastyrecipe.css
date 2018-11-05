@@ -73,6 +73,40 @@ header h1 {
     font-size:12px;
     margin-top: 0%;
 }
+.main-header,
+.under-header{
+    font-weight: bold;
+}
+.main-header{
+    font-size: 150%;
+    line-height: 300%;
+
+}
+.recipe-short{
+    font-size: 80%;
+    font-style: oblique;
+}
+.under-header{
+    font-size: 120%;
+    line-height: 200%;
+}
+p{
+    font-size: 100%;
+    line-height: 150%;
+   
+}
+ul,
+ol{
+    line-height: 120%;
+    margin-left: 5%;
+}
+ul{
+    
+    list-style-type: circle;
+}
+ol{
+    list-style: decimal;
+}
 .main:after{
     content:"";
     display:table;
