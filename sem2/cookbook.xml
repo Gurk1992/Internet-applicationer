@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cookbook version="46">
+
+    <recipe>
+    <title>Meatballs</title>
+    <preptime>Prep: 15min </preptime>
+    <cooktime>Cook: 20min </cooktime>
+    <totaltime>Total: 35 min </totaltime>
+    <description></description>
+    <ingredient>
+        <li>lb lean (at least 80%) ground beef</li>
+        <li>1/2 cup fine, dry breadcrumbs</li>
+        <li>1/4 cup milk</li>
+        <li>1/2 cup grated Parmesan cheese</li>
+        <li>1/4 cup finely chopped fresh parsley leaves</li>
+        <li>2 teaspoons kosher salt</li>
+        <li>Freshly ground black pepper</li>
+        <li>1/2 cup finely chopped onion (or grated on a coarse grater)</li>
+        <li>1 clove garlic, minced</li>
+        <li>1 egg</li>
+    </ingredient>
+    <recipetext>
+        <li>Heat oven to 400°F. Line 13x9-inch pan with foil; spray with cooking spray.</li>
+        <li>In large bowl, mix all ingredients. Shape mixture into 24 (1 1/2-inch) meatballs. Place 1 inch apart in pan.</li>
+        <li>Bake uncovered 18 to 22 minutes or until temperature reaches 160°F and no longer pink in center.</li>
+    </recipetext>
+    <url></url>
+    <video></video>
+    <quantity>Yeilds: 10servings</quantity>
+    <imagepath>/images/Meatballs</imagepath>
+    <imageurl></imageurl>
+    <comments></comments>
+    <source></source>
+    <video></video>
+    <nutrition>
+        <li></li>
+    </nutrition>
+    <rating>5</rating>
+    <category>Meat</category>
+    <category>Dinner</category>
+    </recipe>
+    
+    <recipe>
+    <title>Banana Panncakes</title>
+    <preptime>Prep: 10min </preptime>
+    <cooktime>Cook: 5min </cooktime>
+    <totaltime>Total: 15 min </totaltime>
+    <ingredient>
+        <li>2 cups oats</li>
+        <li>3 ripe bananas</li>
+        <li>3 dates</li>
+        <li>2 teaspoons of ground flax</li>
+        <li>1/2 teaspoon of baking soda and baking powder</li>
+        <li>juice of half a lemon</li>
+        <li>1 cup of milk or plant-milk</li>
+        <li>frozen berry mix</li>
+    </ingredient>
+    <recipetext>
+        <li>Mix the oats to oat flour</li>
+        <li>Add all the rest of the Ingredients except the forzen berries</li>
+        <li>Heat up a pan to meadium heat and fry the pancakes</li>
+        <li>Gently heat up the frozen berries and pour them over the newly fried pancakes </li>
+    </recipetext>
+    <url></url>
+    <quantity>Yields: 10 Pancakes</quantity>
+    <imagepath>/Images/Pancakes.jpg</imagepath>
+    <imageurl></imageurl>
+    <comments></comments>
+    <source></source>
+    <video></video>
+    <nutrition></nutrition>
+    <rating></rating>
+    <category>Dessert</category>
+    <category>Vegan</category>
+    </recipe>
+
+</cookbook>

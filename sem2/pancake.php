@@ -1,5 +1,6 @@
 <?php session_start(); 
 $_SESSION['page']=0; 
+$xml =simplexml_load_file("cookbook.xml") or die("Error: Cannot create object");
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -46,26 +47,28 @@ $_SESSION['page']=0;
     
     <div class = "main">
         <div class = "column-left">
-            <h1 class="main-header">Banana Panncakes</h1>
-            <p class = "recipe-short">prep:10min cooking time: 5 min Yields 10pancakes </p>   
-            <h3 class= "under-header">Ingredients</h3> 
+        <h1 class="main-header" ><?php echo $xml->recipe[1]->title?></h1>
+            <p class ="recipe-short"><?php echo $xml->recipe[1]->preptime, $xml->recipe[1]->cooktime, $xml->recipe[1]->totaltime, $xml->recipe[1]->quantity?></p>
+            <h3 class ="under-header" >Ingredients</h3> 
             <ul>
-                <li>2 cups oats</li>
-                <li>3 ripe bananas</li>
-                <li>3 dates</li>
-                <li>2 teaspoons of ground flax</li>
-                <li>1/2 teaspoon of baking soda and baking powder</li>
-                <li>juice of half a lemon</li>
-                <li>1 cup of milk or plant-milk</li>
-                <li>frozen berry mix</li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[0] ?></li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[1] ?></li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[2] ?></li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[3] ?></li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[4] ?></li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[5] ?></li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[6] ?></li>
+                <li><?php echo $xml->recipe[1]->ingredient->li[7] ?></li>
+               
             </ul>
-            <h3 class= "under-header" >Instructions</h3>
+            <h3 class= "under-header">Instructions</h3>
             <ol>
-                <li>mix the oats to oat flour</li>
-                <li>add all the rest of the Ingredients except the forzen berries</li>
-                <li>heat up a pan to meadium heat and fry the pancakes</li>
-                <li>gently heat up the frozen berries and pour them over the newly fried pancakes</li>
-            </ol>
+            <li><?php echo $xml->recipe[1]->recipetext->li[0] ?></li>
+            <li><?php echo $xml->recipe[1]->recipetext->li[1] ?></li>
+            <li><?php echo $xml->recipe[1]->recipetext->li[2] ?></li>
+            <li><?php echo $xml->recipe[1]->recipetext->li[3] ?></li>
+      
+            </ol> 
         </div>
         <div class = "column-right">
             <img src = "/images/Pancakes.jpg" alt ="Pancakes" class ="responsive"/>

@@ -1,5 +1,6 @@
 <?php session_start(); 
 $_SESSION['page']=1;
+$xml =simplexml_load_file("cookbook.xml") or die("Error: Cannot create object");
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -41,26 +42,27 @@ $_SESSION['page']=1;
     </header>
     <div class = "main">
         <div class = "column-left">
-            <h1 class="main-header" >Meatballs</h1>
-            <p class ="recipe-short">prep:30min cooking time: 30 min Yields 10 servings </p>   
+        <h1 class="main-header" ><?php echo $xml->recipe[0]->title?></h1>
+            <p class ="recipe-short"><?php echo $xml->recipe[0]->preptime, $xml->recipe[0]->cooktime, $xml->recipe[0]->totaltime, $xml->recipe[0]->quantity?></p>
             <h3 class ="under-header" >Ingredients</h3> 
             <ul>
-                <li>lb lean (at least 80%) ground beef</li>
-                <li>1/2 cup fine, dry breadcrumbs</li>
-                <li>1/4 cup milk</li>
-                <li>1/2 cup grated Parmesan cheese</li>
-                <li>1/4 cup finely chopped fresh parsley leaves</li>
-                <li>2 teaspoons kosher salt</li>
-                <li>Freshly ground black pepper</li>
-                <li>1/2 cup finely chopped onion (or grated on a coarse grater)</li>
-                <li>1 clove garlic, minced</li>
-                <li>1 egg</li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[0] ?></li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[1] ?></li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[2] ?></li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[3] ?></li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[4] ?></li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[5] ?></li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[6] ?></li>
+                <li><?php echo $xml->recipe[0]->ingredient->li[7] ?></li>
+               
             </ul>
             <h3 class= "under-header">Instructions</h3>
             <ol>
-                <li>Heat oven to 400°F. Line 13x9-inch pan with foil; spray with cooking spray.</li>
-                <li>In large bowl, mix all ingredients. Shape mixture into 24 (1 1/2-inch) meatballs. Place 1 inch apart in pan.</li>
-                <li>Bake uncovered 18 to 22 minutes or until temperature reaches 160°F and no longer pink in center.</li>
+            <li><?php echo $xml->recipe[0]->recipetext->li[0] ?></li>
+            <li><?php echo $xml->recipe[0]->recipetext->li[1] ?></li>
+            <li><?php echo $xml->recipe[0]->recipetext->li[2] ?></li>
+            <li><?php echo $xml->recipe[0]->recipetext->li[3] ?></li>
+      
             </ol> 
         </div>
         <div class = "column-right">
