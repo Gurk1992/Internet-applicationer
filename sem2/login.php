@@ -12,17 +12,18 @@ include "mysql.php";
 
 $sql="SELECT * FROM login WHERE username='".$username."' AND password ='".$password."'";
 $query= $conn->query($sql);
-
+//kollar om det fanns ett resultat
 if($query->num_rows >0){
+    // tar ut resultatet i en array
     if($row = $query->fetch_assoc()){
-        $_SESSION["user"]= $username;
-        header("Location: {$_POST['curpage']}?loginSucess}");
+        $_SESSION["user"]= $row['username'];
+        header("Location: {$_POST['curpage']}?loginSucess }");
         exit();
         }
     }
     else{
         
-        header('Location: meatball.php');
+        header("Location: {$_POST['curpage']}?loginSucess }");
         $_SESSION['loginError'] = 'Invalid login information, please try again!';
     }
 }

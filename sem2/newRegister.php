@@ -28,6 +28,11 @@ session_start();
                 <button type ="submit" name ="login" class = "buttons"> Login</button>
                 <?php } ?>
             </form>
+            <?php if(isset($_SESSION['loginError'])){
+                        echo "<h2 class='errormessage'>" .$_SESSION['loginError']."</h2>";
+                        unset($_SESSION['loginError']);
+                    }
+                    ?>
         </div>
     <nav class= "top-nav">
         <a class = "menu-links" href="./calendar.php">Calendar</a>
@@ -40,12 +45,12 @@ session_start();
             <div class = "column-left">
                 <h1 class="main-header" >Register</h1>
                 <p> Please fill in this form to create an account!
-                <form class = "login" action="login.php" method ="POST">
+                <form class = "register" action="register.php" method ="POST">
                 <div class ="forms">
                     <input type="text" name="username" placeholder="Username" required>
                     <input type ="password" name="password" placeholder="Password" required>
                 </div>
-                    <button type ="submit" name ="register" formaction="register.php" class = "buttons register-button">Register</button>
+                    <button type ="submit" name ="register" class = "buttons register-button">Register</button>
                 </form>  
             <div class = "registerError">
             <?php if(isset($_SESSION['registerError'])){

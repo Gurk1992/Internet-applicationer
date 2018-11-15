@@ -25,6 +25,11 @@
                 <button type ="submit" name ="login" class = "buttons"> Login</button>
                 <?php } ?>
             </form>
+            <?php if(isset($_SESSION['loginError'])){
+                        echo "<h2 class='errormessage'>" .$_SESSION['loginError']."</h2>";
+                        unset($_SESSION['loginError']);
+                    }
+                    ?>
         </div>
     <nav class= "top-nav">
         <a class = "menu-links" href="./calendar.php">Calendar</a>
