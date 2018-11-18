@@ -93,6 +93,12 @@ $xml =simplexml_load_file("cookbook.xml") or die("Error: Cannot create object");
             } else{
             ?>
                 <p>Login at the top of the page to leave a comment.</p>
+                <form class = "login" action="login.php" method ="POST">
+            <input type="hidden" name="curpage" value="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>"/>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type ="password" name="password" placeholder="Password" required>
+                <button type ="submit" name ="login" class = "buttons"> Login</button>
+            </form>
             <?php 
             } 
             ?>
