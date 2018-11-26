@@ -11,15 +11,18 @@ class login{
 
     private $username;
     private $password;
-    private $curpage;
-
-    public function __construct($username, $password, $curpage){
+   
+    /**
+     * constructor sets username to private username and password to private password.
+     */
+    public function __construct($username, $password){
        $this->username = $username;
        $this->password= $password;
-       $this->curpage= $curpage;
     }
    /**
     * Login function, uses Mysql  and checks result from database.
+    *
+    * returns Boolean True if succesfully logged in otherwise false.
     */
     
     public function loginAttempt(){
@@ -28,19 +31,18 @@ class login{
         $result= $mysql->login($sql, $this->username);
         $row = $result->fetch_assoc();
         if(password_verify($this->password, $row['password'])){
-            $_SESSION["user"]= $row['username'];
-            header("Location:".$this->curpage."?loginSucessfull" );
-            exit();
+            return $res = TRUE;
         }
         
         else{
             
-            header("Location: ".$this->curpage."?Loginfailed ");
-            $_SESSION['loginError'] = 'Invalid login information, please try again!';
+            return $res = FALSE;
         }
     }
     /**
      * Registers user, uses mysql and checks result from sql query.
+     * 
+     * returns boolean true if registered otherwise false
      */
     public function registerAttempt(){
         $sql="SELECT * FROM login WHERE username=?";
@@ -49,31 +51,15 @@ class login{
         if($result->num_rows==0){
             $sql = "INSERT INTO login (username, password) VALUES(?, ?)";
             $result= $mysql->register($sql, $this->username, $this->password);   
-            if($result===TRUE){
-                $_SESSION['registerError']="Your account has been successfully created!";
-                header("Location: index.php?registerSuccess");
-            }
-            else
-            {
-            $_SESSION['registerError']="Account has not been successfully created, try again!";
-            header("Location:".$this->curpage."?registerUnsucessfull");
-            }
+            return $result; 
         }
         else{
-            $_SESSION['registerError'] = 'Username alredy in use, try another one!';
-            header("Location:".$this->curpage."?invalidUsername");
+            return; 
         }
 }  
 
 
-/**
- * Attemt att simplified database call.
- */
-    private function q($sql){
-        $mysql = new mysql();
-       $result= $mysql->query($sql);   
-        return $result;
-    }
+
 }
 
 ?>

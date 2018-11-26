@@ -12,7 +12,19 @@ if(isset($_POST['register']))
         $curpage =$_POST['curpage'];
         if(ctype_print($password) && ctype_print($username) && ctype_print($curpage)){
         $Contr = new Controller();
-        $Contr->registeruser($username, $password, $curpage);
+        $result=$Contr->registeruser($username, $password, $curpage);
+        if($result===TRUE){
+            $_SESSION['registerError']="Your account has been successfully created!";
+            header("Location: index.php?registerSuccess");
+        }
+        else if($result ===FALSE){
+            $_SESSION['registerError']="Account has not been successfully created, try again!";
+            header("Location:".$curpage."?registerUnsucessfull");
+        }
+        else{
+            $_SESSION['registerError'] = 'Username alredy in use, try another one!';
+            header("Location:".$curpage."?invalidUsername");
+        }
        
     }
     else{

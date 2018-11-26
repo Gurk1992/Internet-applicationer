@@ -10,13 +10,17 @@ if($this->conn->connect_error){
     die("Connection failed: " . $this->conn->connect_error);
 }
  }
-
+/**
+ * querys database and returns result.
+ * return array of info
+ */
  public function query($sql){
     $query= $this->conn->query($sql);
     return $query;
    
  }
  public function login($sql, $username){
+    // $stmt = $this->conn->prepare($sql);
      $stmt = $this->conn->prepare($sql);
      $stmt-> bind_param('s', $username);
      $stmt->execute();
@@ -38,30 +42,7 @@ if($this->conn->connect_error){
  public function deleteComment ($sql, $postid){
     $stmt = $this->conn->prepare($sql);
     $stmt-> bind_param('s', $postid);
-    $stmt->execute();
+    return $stmt->execute();
 }
 }
-
-
-/*class mysql{
- private $local = "localhost";
- private $acc = "root";
- private $pw = "cjopg123";
- private $db = "mydb";
- private $conn = null;
-
-public function __construct(){
-     $this->conn= new mysqli("localhost","root","cjopg123","myDB");
-// check connection
-if($this->conn->connect_error){
-    die("Connection failed: " . $this->conn->connect_error);
-}
- }
-
- public function query($sql){
-    $query= $this->conn->query($sql);
-    return $query;
-   
- }
-}*/
 ?>

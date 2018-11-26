@@ -1,5 +1,5 @@
 <?php
-header( "Cache-Controll: no-store");
+header( "Cache-Control: max-age=<30>"); 
     /**
      * View for user comments.
      * Shows all comments for specific recipes.

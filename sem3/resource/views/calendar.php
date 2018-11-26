@@ -1,5 +1,6 @@
 <?php 
-session_start()
+session_start();
+header( "Cache-Control: max-age=<350>"); 
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -19,7 +20,7 @@ session_start()
             <form class = "login" action="../../do-login.php" method ="POST">
                 <?php if(isset($_SESSION['user'])){
                 ?>
-                <a class= "menu-links" href="logout.php"> Sign out <?php echo $_SESSION['user']; ?></a>
+                <a class= "menu-links" href="../../do-logout.php"> Sign out <?php echo $_SESSION['user']; ?></a>
                 <?php }else{ ?>
                 <input type="hidden" name="curpage" value="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>"/>
                 <input type="text" name="username" placeholder="Username" required>
