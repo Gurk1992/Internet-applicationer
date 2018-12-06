@@ -11,36 +11,35 @@ header( "Cache-Control: max-age=<350>");
     <title>Tasty Recipes</title>
     <link rel="stylesheet" type="text/css" href="/resource/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/resource/css/tastyrecipe.css">
+    <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type = "text/javascript" src =/recipes.js> </script>
 </head>
 <body>
-    <header> 
-        <h1><a class = "menu-links" href="./index.php">Tasty Recipes</a></h1>
-        <div class="login-container">
-            <form class = "login" action="../../do-login.php" method ="POST">
-                <?php if(isset($_SESSION['user'])){
-                ?>
-                <a class= "menu-links" href="../../do-logout.php"> Sign out <?php echo $_SESSION['user']; ?></a>
+<header id = "header" >
+    <h1><a class = "menu-links" href="./index.php">Tasty Recipes</a></h1>
+    <div id = "login-container" class="login-container">
+        <div id = "logout">
+            <?php if(isset($_SESSION['user'])){ ?>
                 
-                <?php }else{ ?>
-                <input type="hidden" name="curpage" value="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>"/>
-                <input type="text" name="username" placeholder="Username" required>
-                <input type ="password" name="password" placeholder="Password" required>
-                <button type ="submit" name ="login" class = "buttons"> Login</button>
-                <?php } ?>
+            <button id = "loggedin" class= "buttons"> Sign out <?php if(isset($_SESSION['user'])) echo $_SESSION['user']; ?></button>     
+            <?php } else{?>
+            
+            <form id = "login">
+            <input id = "login-name" type="text" name="username" placeholder="Username" required>
+            <input id = "login-pass" type ="password" name="password" placeholder="Password" required>
+            <button id ="login-button" type ="submit" class = "buttons"> Login</button>
+            <?php } ?>
             </form>
-            <?php if(isset($_SESSION['loginError'])){
-                        echo "<h2 class='errormessage'>" .$_SESSION['loginError']."</h2>";
-                        unset($_SESSION['loginError']);
-                    }
-                    ?>
-        </div>
+        </div id ="logout">
+        <h2 id ="login-message" class='errormessage'> </h2>
+    </div>
     <nav class= "top-nav">
-        <a class = "menu-links" href="./resource/views/calendar.php">Calendar</a>
-        <a class = "menu-links" href="./resource/views/meatball.php">Meatball Recipe</a>
-        <a class = "menu-links" href="./resource/views/pancake.php">Pancakes Recipe</a>
-        <a class = "menu-links" href="./resource/views/newRegister.php"> Register Account</a>
+        <a class = "menu-links" href="/resource/views/calendar.php">Calendar</a>
+        <a class = "menu-links" href="/resource/views/meatball.php">Meatball Recipe</a>
+        <a class = "menu-links" href="/resource/views/pancake.php">Pancakes Recipe</a>
+        <a class = "menu-links" href="/resource/views/newRegister.php"> Register Account</a>
     </nav>
-    </header>
+</header>
         <div class = "main">
             <div class = "column-left">
                 <h1 class="main-header" >Welcome </h1>

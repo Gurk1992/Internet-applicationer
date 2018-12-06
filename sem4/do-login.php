@@ -2,8 +2,10 @@
 /**
  * logs in user.
  */
+session_start(); 
 
 require_once 'classes/Comment/Controller/Controller.php';
+header('Content-Type: application/json');
 
 if(isset($_POST['login'])){
     
@@ -16,22 +18,20 @@ if(isset($_POST['login'])){
         if(ctype_print($password) && ctype_print($username)){
             $contr= new Controller();
             $result= $contr -> setlogin($username, $password);
-            if($result === TRUE){
-                $_SESSION["user"]= $username;
-                echo "success";
+            if($result !== FALSE){
+                $_SESSION["user"]= $result;
+                echo json_encode( "$username");
             }
             else if($result === FALSE){
-                $_SESSION['loginError'] = 'Invalid login information, please try again!';
+                echo json_encode(  "Invalid login information, please try again!");
             }
         }
         else{
-           
-            $_SESSION['loginError'] ='Only normal chars are allowed.';
+            echo json_encode( "Only normal chars are allowed.");
         }
     }
     else{
-        
-        $_SESSION['loginError'] ='All frields are required!';
+        echo json_encode(  "All frields are required!");
     }
 }
 /*

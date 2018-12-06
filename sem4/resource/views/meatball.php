@@ -1,5 +1,5 @@
 <?php session_start(); 
-header( "Cache-Control: max-age=<350>"); 
+
 $_SESSION['page']=1; 
 $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create object");
 ?>
@@ -12,27 +12,28 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
     <title>Tasty Recipes</title>
     <link rel="stylesheet" type="text/css" href="/resource/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/resource/css/tastyrecipe.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type = "text/javascript" src =/recipes.js> </script>
+    
 </head>
 <body>
-    <header>
-        <h1><a class = "menu-links" href="../../index.php">Tasty Recipes</a></h1>
-        <div class="login-container">
-            <form id = "login">
-                <?php if(isset($_SESSION['user'])){ ?>
-                <a id = "loggedin" class= "menu-links" href="../../do-logout.php"> Sign out <?php echo $_SESSION['user']; ?></a>
-                <?php }else{ ?>
+    <header id = "header" >
+        <h1><a class = "menu-links" href="./start.php">Tasty Recipes</a></h1>
+        <div id = "login-container" class="login-container">
+            <div id = "logout">
+            <?php if(isset($_SESSION['user'])){ ?>
+                
+                <button id = "loggedin" class= "buttons"> Sign out <?php if(isset($_SESSION['user'])) echo $_SESSION['user']; ?></button>     
+            <?php } else{?>
+            
+                <form id = "login">
                 <input id = "login-name" type="text" name="username" placeholder="Username" required>
                 <input id = "login-pass" type ="password" name="password" placeholder="Password" required>
                 <button id ="login-button" type ="submit" class = "buttons"> Login</button>
-                <?php } ?>
-            </form>
-            <p class ="login-error"> </p>
-            <?php if(isset($_SESSION['loginError'])){
-                        echo "<h2 class='errormessage'>" .$_SESSION['loginError']."</h2>";
-                        unset($_SESSION['loginError']);
-                    }
-                    ?>
+            <?php } ?>
+                </form>
+            </div id ="logout">
+            <h2 id ="login-message" class='errormessage'> </h2>
         </div>
         <nav class= "top-nav">
             <a class = "menu-links" href="./calendar.php">Calendar</a>
@@ -71,72 +72,28 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
             <p class= "img-text">Swedish meatballs</p>
         </div>
     </div>
-    <div class = "comments main">
-        <div class ="column-left">
-            <?php include "commentshow.php"?>
+    <div id ="comments-main" class = "comments main">
+        <div class ="column-left" id ="column-left">
+            <script>
+            window.onload = getComment();</script>
         </div>
-        <div class ="column-right">
-            <?php
-            if(isset($_SESSION['user'])){
-                ?>
+        <div id = "comment-right" class ="column-right">
+            <?php if(isset($_SESSION['user'])){ ?>
                 <h3 class = "under-header">Leave a comment!</h3>
-                <form class ="comment-area" action = "../../do-comment.php" method="post">
-                <input type = "hidden" name="receptid" value= "1">
-                <input type="hidden" name="curpage" value="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>"/>
-                <textarea class = "comment-field" type ="textarea" name="comment" placeholder="Write your comment here" required></textarea>
+                <form id ="comment" class ="comment-area">
+                <input id ="comment-receptid" type = "hidden" name="receptid" value= "1">
+                <textarea id ="comment-text" class = "comment-field" type ="textarea" name="comment" placeholder="Write your comment here" required></textarea>
                 <div>
-                <button class = "buttons comment-button" type ="submit" name ="comment-submit"> Submit comment</button>
+                <button id = "comment-button"class = "buttons comment-button" type ="submit" name ="comment-submit"> Submit comment</button>
                 </div>
                 </form>
-                <?php if(isset($_SESSION['commentMessage'])){
-                        echo "<p class='errormessage'>" .$_SESSION['commentMessage']."</p>";
-                        unset($_SESSION['commentMessage']);
-                    }
-            } else{
-            ?>
-                <p>Login at the top of the page to leave a comment.</p>
-                <form class = "login" action="../../do-login.php" method ="POST">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type ="password" name="password" placeholder="Password" required>
-                <button type ="submit" name ="login" class = "buttons"> Login</button>
-            </form>
-            <?php 
-            } 
-            ?>
+                <p id = "comment-message" class='errormessage'><p>
+            
+            <?php } else{?>
+                <p id ="comment-outlogged">Login at the top of the page to leave a comment.</p>
+            <?php } ?>
         </div>
     </div>
-    <script>
-   $(document).ready(function(){
-    $('#login').submit(function(event){
-        event.preventDefault();
-    
-        var data = {
-            login: "login",
-            username: $('#login-name').val(),
-            password: $('#login-pass').val()
-        };
-
-        $.ajax({
-            
-            type: 'POST',
-            url : '/do-login.php',
-            data : data,
-            success : function (re){
-                if(re=="success"){
-                   location.reload();
-                }
-                else{
-                    $("#login-message").text(re);
-                   location.reload();
-                
-            }
-        }
-        });
-        
-    });
-});
- 
- </script>
 </body>
 </html>
 

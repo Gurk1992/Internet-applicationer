@@ -5,28 +5,25 @@
 
 require_once 'classes/Comment/Controller/Controller.php';
 
-if(isset($_POST['comment-submit'])){
+if(isset($_POST['commentsubmit'])){
         $comment=$_POST['comment'];
         $username = $_SESSION['user'];
-        $receptId =$_POST['receptid'];
-        $curpage = $_POST['curpage'];
-        if(ctype_print($comment) && ctype_print($username)&&ctype_print($receptId)&&ctype_print($curpage)){
+        $receptId =$_POST['receptId'];
+       
+        if(ctype_print($comment) && ctype_print($username)&&ctype_print($receptId)){
 
                 $Contr = new Controller();
-                $result = $Contr->storeComment($comment, $username, $receptId, $curpage);
+                $result = $Contr->storeComment($comment, $username, $receptId);
                 if($result === TRUE){
-                header("Location: ".$curpage."?CommentCreated ");
-                $_SESSION['commentMessage'] ='Comment has been created!';
+               echo 'Comment has been created!';
 
                 }
                 if($result === FALSE){
-                header("Location: ".$curpage."?Commentfailed ");
-                $_SESSION['commentMessage'] ='comment has not been created'; 
+                echo 'comment has not been created'; 
                 }
         }
         else{
-                header("Location: ".$curpage."?Commentfailed ");
-                $_SESSION['commentMessage'] ='Only normal chars are allowed';
+                echo 'Only normal chars are allowed';
         } 
 }
 ?>

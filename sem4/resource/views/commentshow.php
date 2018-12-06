@@ -11,13 +11,15 @@ header( "Cache-Control: max-age=<30>");
        
     while($row = $result->fetch_assoc())
         {  
+            if(isset($_SESSION['user'])){
+                $same = strcasecmp($_SESSION['user'], $row['username']);
+            }
             if($row['receptId']== $_SESSION['page']){
                 echo "<div class = 'comment-box'>";
-                if(isset($_SESSION['user']) && $_SESSION['user'] === $row['username']){ 
-                echo "<form class ='delete-form' method='POST' action ='../../do-deletecomment.php'>
-                <input type='hidden' name='postid' value ='".$row['postid']."'>
-                <input type='hidden' name='curpage' value='".htmlspecialchars($_SERVER['PHP_SELF'])."'/>
-                <button class = 'buttons' name = 'comment-delete' type = 'submit'>Delete</button>
+                if(isset($_SESSION['user']) && $same==0){ 
+                echo "<form id = 'delete' class ='delete-form'>
+                <input id='postid' type='hidden' name='postid' value ='".$row['postid']."'>
+                <button id = 'delete' class = 'buttons' name = 'comment-delete' type = 'submit'>Delete</button>
                 </form>";
                 }
                 echo "<p class ='comment-user'>" .$row['username']." commented: </p> ";
@@ -29,5 +31,6 @@ header( "Cache-Control: max-age=<30>");
     
     
            
-    
+//// if(isset($_SESSION['user']) && $_SESSION['user'] === $row['username']){     
 ?>
+

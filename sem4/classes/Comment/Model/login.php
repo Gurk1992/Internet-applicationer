@@ -17,7 +17,7 @@ class login{
      */
     public function __construct($username, $password){
        $this->username = $username;
-       $this->password= $password;
+       $this->password= $password; 
     }
    /**
     * Login function, uses Mysql  and checks result from database.
@@ -31,7 +31,7 @@ class login{
         $result= $mysql->login($sql, $this->username);
         $row = $result->fetch_assoc();
         if(password_verify($this->password, $row['password'])){
-            return $res = TRUE;
+            return $row['username'];
         }
         
         else{
