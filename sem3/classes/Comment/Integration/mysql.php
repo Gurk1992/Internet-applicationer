@@ -1,10 +1,11 @@
 <?php
+namespace mysql;
 class mysql{
 
  private $conn = null;
 
 public function __construct(){
-     $this->conn= new mysqli("localhost","root","123","myDB");
+     $this->conn= new \mysqli("localhost","root","cjopg123","myDB");
 // check connection
 if($this->conn->connect_error){
     die("Connection failed: " . $this->conn->connect_error);
@@ -14,28 +15,33 @@ if($this->conn->connect_error){
  * querys database and returns result.
  * return array of info
  */
- public function query($sql){
+ public function query(){
+    $sql = "SELECT postid,receptId, username, text FROM comments";
     $query= $this->conn->query($sql);
     return $query;
    
  }
  /**
-  * Checks if username is in db,
-  * returns true / false, true when info matches correctly otherwise no.
+  * fetches user details
+  * Returns array of user details (password, accountname etc)
   */
- public function login($sql, $username){
+ public function login($username){
+     $sql= "SELECT * FROM login WHERE username=?";
      $stmt = $this->conn->prepare($sql);
      $stmt-> bind_param('s', $username);
      $stmt->execute();
-     return $stmt->get_result();
+     return $stmt->get_result()->fetch_assoc();
+     
    
  }
+ 
  /**
   * Inserts account name and password in db
   * returns true / false, true when info is saved correctly otherwise no.
   */
  
- public function register($sql, $username, $password){
+ public function register($username, $password){
+    $sql = "INSERT INTO login (username, password) VALUES(?, ?)";
     $stmt = $this->conn->prepare($sql);
     $stmt-> bind_param('ss', $username, $password);
     return $stmt->execute();
@@ -45,7 +51,8 @@ if($this->conn->connect_error){
   * Inserts comment text, username, and what recept id into db
   * returns true / false, true when info is saved correctly otherwise no.
   */
- public function comment($sql, $receptId, $username,$com){
+ public function comment($receptId, $username,$com){
+    $sql = "INSERT INTO comments(receptId, username, text) VALUES(?, ?, ?)";
     $stmt = $this->conn->prepare($sql);
      $stmt-> bind_param('sss', $receptId, $username, $com);
      return $stmt->execute();
@@ -55,7 +62,8 @@ if($this->conn->connect_error){
   * Deletes comment that matches postid in db.
   * returns true / false, true when comment is deleted correctly otherwise no.
   */
- public function deleteComment ($sql, $postid){
+ public function deleteComment ($postid){
+    $sql = "DELETE FROM comments WHERE postid=?";
     $stmt = $this->conn->prepare($sql);
     $stmt-> bind_param('s', $postid);
     return $stmt->execute();

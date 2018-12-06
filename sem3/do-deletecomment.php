@@ -1,8 +1,11 @@
 <?php 
+namespace View;
 /**
  * deletes user comment
  */
+use \Controller\Controller;
 require_once 'classes/Comment/Controller/Controller.php';
+session_start();
 
 if(isset($_POST['comment-delete'])){
     $postid = $_POST['postid'];

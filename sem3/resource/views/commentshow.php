@@ -4,8 +4,9 @@ header( "Cache-Control: max-age=<30>");
      * View for user comments.
      * Shows all comments for specific recipes.
      */
+    use \Controller\Controller;
     require_once '../../classes/Comment/Controller/Controller.php';
-    
+
     $contr = new Controller();
     $result=$contr->showComment();
        

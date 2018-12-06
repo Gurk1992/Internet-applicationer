@@ -1,7 +1,12 @@
 <?php
+namespace Controller;
+
+use Model\comment;
+use Model\login;
+
 require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/comment.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/login.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/logout.php';
+
 
 class Controller{
     /**

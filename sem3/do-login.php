@@ -1,10 +1,11 @@
 <?php
+namespace View;
 /**
  * logs in user.
  */
-
+use \Controller\Controller;
 require_once 'classes/Comment/Controller/Controller.php';
-
+session_start();
 if(isset($_POST['login'])){
     if(!empty($_POST['username'])&& !empty($_POST['password'])){
         $username=$_POST['username'];

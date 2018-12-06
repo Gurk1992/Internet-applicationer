@@ -1,4 +1,7 @@
 <?php
+namespace Model;
+
+use mysql\mysql;
 
 require_once $_SERVER['DOCUMENT_ROOT']. '/classes/Comment/Integration/mysql.php';
 Class comment{
@@ -12,9 +15,8 @@ Class comment{
      * returns boolean, true if comment was deleted otherwise false.
      */
     public function storeComment($com, $username, $receptId ){
-        $sql = "INSERT INTO comments(receptId, username, text) VALUES(?, ?, ?)";
         $mysql = new mysql();
-        return $mysql->comment($sql, $receptId,$username, $com);
+        return $mysql->comment($receptId,$username, $com);
     }
     /**
      * Function that deletes a specific comment
@@ -23,18 +25,16 @@ Class comment{
      * returns boolean true if comment was deleted otherwise false.
      */
     public function deleteComment($postid){
-        $sql = "DELETE FROM comments WHERE postid=?";
         $mysql = new mysql();
-        return  $mysql->deleteComment($sql, $postid);
+        return  $mysql->deleteComment($postid);
         
     }
     /**
      * FUnction that extracts all comments from the database
      */
     public function showComment(){
-        $sql = "SELECT postid,receptId, username, text FROM comments";
         $mysql= new mysql();
-        return $mysql->query($sql);     
+        return $mysql->query();     
     }
 
 }

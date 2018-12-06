@@ -1,7 +1,10 @@
 <?php
+namespace View;
 /**
  * registers user, nickname and password
  */
+use \Controller\Controller;
+session_start();
 require_once 'classes/Comment/Controller/Controller.php';
 if(isset($_POST['register']))
 {
@@ -17,13 +20,9 @@ if(isset($_POST['register']))
             $_SESSION['registerError']="Your account has been successfully created!";
             header("Location: index.php?registerSuccess");
         }
-        else if($result ===FALSE){
+        else{
             $_SESSION['registerError']="Account has not been successfully created, try again!";
             header("Location:".$curpage."?registerUnsucessfull");
-        }
-        else{
-            $_SESSION['registerError'] = 'Username alredy in use, try another one!';
-            header("Location:".$curpage."?invalidUsername");
         }
        
     }
