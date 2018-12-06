@@ -37,7 +37,7 @@ if($this->conn->connect_error){
  
  /**
   * Inserts account name and password in db
-  * returns true / false, true when info is saved correctly otherwise no.
+  * returns True /False depending on if statement was successfull or not.
   */
  
  public function register($username, $password){
@@ -49,7 +49,7 @@ if($this->conn->connect_error){
  }
  /**
   * Inserts comment text, username, and what recept id into db
-  * returns true / false, true when info is saved correctly otherwise no.
+  * returns True /False depending on if statement was successfull or not.
   */
  public function comment($receptId, $username,$com){
     $sql = "INSERT INTO comments(receptId, username, text) VALUES(?, ?, ?)";
@@ -60,7 +60,7 @@ if($this->conn->connect_error){
  }
  /**
   * Deletes comment that matches postid in db.
-  * returns true / false, true when comment is deleted correctly otherwise no.
+  * returns True /False depending on if statement was successfull or not.
   */
  public function deleteComment ($postid){
     $sql = "DELETE FROM comments WHERE postid=?";
