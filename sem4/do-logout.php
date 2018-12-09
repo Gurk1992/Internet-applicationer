@@ -4,6 +4,8 @@
  */
 require_once 'classes/Comment/Controller/Controller.php';
 
-$contr= new Controller();
-$contr -> unsetlogin();
+session_start();  
+unset($_SESSION['user']);  
+session_destroy();  
+header("Location:index.php");  
 ?>

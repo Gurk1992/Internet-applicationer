@@ -12,7 +12,8 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
     <title>Tasty Recipes</title>
     <link rel="stylesheet" type="text/css" href="/resource/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/resource/css/tastyrecipe.css">
-    <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
     <script type = "text/javascript" src =/recipes.js> </script>
 </head>
 <body>
@@ -22,7 +23,7 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
         <div id = "logout">
             <?php if(isset($_SESSION['user'])){ ?>
                 
-            <button id = "loggedin" class= "buttons"> Sign out <?php if(isset($_SESSION['user'])) echo $_SESSION['user']; ?></button>     
+                <button id = "loggedin" class= "buttons">Sign out <?php if(isset($_SESSION['user'])) echo $_SESSION['user']; ?></button>     
             <?php } else{?>
             
             <form id = "login">
@@ -72,8 +73,8 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
 </div>
 <div id ="comments-main" class = "comments main">
         <div class ="column-left" id ="column-left">
-            <script>
-            window.onload = getComment();</script>
+       
+        <div class = 'comment-box' id = 'comment-box'></div>
         </div>
         <div id = "comment-right" class ="column-right">
             <?php if(isset($_SESSION['user'])){ ?>

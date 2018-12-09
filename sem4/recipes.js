@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-
+getComment($("#comment-receptid").val());
     // logs user in
 $("form#login").submit(function (event) {
     event.preventDefault();
@@ -8,23 +8,24 @@ $("form#login").submit(function (event) {
     var data = {
         login: "login",
         username: $('#login-name').val(),
-        password: $('#login-pass').val()
+        password: $('#login-pass').val(),
+        receptid: $('#login-receptid').val(),
     };
     
         $.ajax({
         
         type: 'POST',
-        url : '../../do-login.php',
+        url : '/do-login.php',
         data : data,
             success : function(re){
                 if( data.username.toUpperCase() == re.toUpperCase()){
-    
+                    getComment(data.receptid);
                     $("#loggedin").append(" " +data.username);
-                    var logged = 1;
                     $("#comment-right").load(" #comment-right");
                     $("#logout").load(" #logout");
                     $("#comment").load(" #comment");
-                    getComment();
+                    getComment(data.receptid);
+                   
                 }
                 else{ 
                     $("#login-message").text(re);
@@ -41,17 +42,21 @@ $("form#login").submit(function (event) {
     var data = {
         commentsubmit: "comment-submit",
         receptId: $('#comment-receptid').val(),
-        comment: $('#comment-text').val()
+        comment: $('textarea#comment-text').val(),
     };
+    console.log(data.receptId);
+    console.log(data.comment);
     
         $.ajax({
         
         type: 'POST',
-        url : '../../do-comment.php',
+        url : '/do-comment.php',
         data : data,
+        
             success : function(re){
+                console.log(re);
                 $("#comment-message").text(re);
-                getComment();
+                getComment(data.receptId);
                 }
             });
         });
@@ -64,46 +69,81 @@ $("form#login").submit(function (event) {
         $.ajax({
         
         type: 'GET',
-        url : '../../do-logout.php',
+        url : '/do-logout.php',
     
             success : function(re){
-                var logged = 0;
                 window.location.href = '/index.php';
                 }
             });
-        });
+        }); 
 
-        // Deletes comment
-        $('body').on("submit","#delete",function(event){
-            event.preventDefault();
-            getComment();
-            var data = {
-                commentdelete: "commentdelete",
-                postid: $('#postid').val(),
-                };
-        
+        function getComment(id){
             $.ajax({
-                type: 'POST',
-                url : '/do-deletecomment.php',
-                data : data,
-                success : function(re){
-                    getComment();
-                    $("#comment-message").text(re);
-                }
-                });
-            });
-     
-    });
-    
-    // gets comments
-    function getComment(){
-        $.ajax({
-         type: 'POST',
-         url : 'commentshow.php',
-         success : function(re){
-             $("#column-left").html(re);
+             type: 'post',
+             url : 'commentshow.php',
+             data: {receptid: id},
+             dataType: "json",
              
-         }
- 
-        });
-    }
+             success : function(comments){
+                $("#comment-box").html("");
+                 for(var i = 0; i < comments.length; i++){
+                    addEntry(comments[i]);
+                 }
+             }
+            
+            });
+        }
+        
+          // adds comment
+          function addEntry(comment){
+            
+            if (removeQuotes(comment.username) === removeQuotes(getNickName())) {
+               $("<p id ='delete' class ='delete-form>").appendTo($("#comment-box"));
+                $("<input id='postid' type='hidden' name='postid' value ="+removeQuotes(comment.postid)+">").appendTo($("#comment-box"));
+                $("<input id='receptid' type='hidden' name='receptid' value ="+removeQuotes(comment.receptId)+">").appendTo($("#comment-box"));
+                $("<button id = 'delete' class = 'buttons' name = 'comment-delete' type = 'submit'> Delete </button></p>").one("click", deleteComment).appendTo($("#comment-box"));
+               
+            } 
+            $("<p class ='comment-user' id = 'commet-user'> "+removeQuotes(comment.username) +" commented:</p>").appendTo($("#comment-box"));      
+            $("<p class ='comment-text' id ='comment-text'>"+removeQuotes(comment.text)+"</p>").appendTo($("#comment-box"));
+           
+               
+            }
+            //DELETE comment
+             function deleteComment(){
+                var data = {
+                    postid: $('#postid').val(),
+                    receptid: $('#receptid').val()
+                    };
+                    console.log(data.postid);
+                    console.log(data.receptid);
+            
+                $.ajax({
+                    type: 'POST',
+                    url : '/do-deletecomment.php',
+                    data : data,
+                    dataType: "json",
+                    success : function(re){
+                        
+                        getComment(data.receptid);
+                        $("#comment-message").text(re);
+                        
+                    }
+                    });
+        }
+            //removes quotes
+            function removeQuotes(str) {
+                return str.replace(/\"/g, "");
+            }
+            //gets nickname from dom
+            function getNickName() {
+            
+                return $("#loggedin").text().substring(9);
+               
+                
+            }      
+    
+            
+    });
+
+    

@@ -1,11 +1,9 @@
 <?php
-
+namespace Model;
 /**
  * Login/register class
  */
-if(session_id() == '') {
-    session_start();
-}
+use mysql\mysql;
 require_once $_SERVER['DOCUMENT_ROOT']. '/classes/Comment/Integration/mysql.php';
 class login{
 
@@ -17,7 +15,7 @@ class login{
      */
     public function __construct($username, $password){
        $this->username = $username;
-       $this->password= $password; 
+       $this->password= $password;
     }
    /**
     * Login function, uses Mysql  and checks result from database.
@@ -26,13 +24,11 @@ class login{
     */
     
     public function loginAttempt(){
-        $sql= "SELECT * FROM login WHERE username=?";
         $mysql = new mysql();
-        $result= $mysql->login($sql, $this->username);
-        $row = $result->fetch_assoc();
-        if(password_verify($this->password, $row['password'])){
-            return $row['username'];
-        }
+        $result= $mysql->login($this->username);
+            if(password_verify($this->password, $result['password'] )){
+            return $res = TRUE;
+            }
         
         else{
             
@@ -45,12 +41,11 @@ class login{
      * returns boolean true if registered otherwise false
      */
     public function registerAttempt(){
-        $sql="SELECT * FROM login WHERE username=?";
+        
         $mysql = new mysql();
-        $result= $mysql->login($sql, $this->username);   
-        if($result->num_rows==0){
-            $sql = "INSERT INTO login (username, password) VALUES(?, ?)";
-            $result= $mysql->register($sql, $this->username, $this->password);   
+        $result= $mysql->login($this->username);   
+        if(empty($result)){
+            $result= $mysql->register($this->username, $this->password);   
             return $result; 
         }
         else{

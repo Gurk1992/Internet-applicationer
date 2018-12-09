@@ -1,7 +1,12 @@
 <?php
+namespace Controller;
+
+use Model\comment;
+use Model\login;
+use DTO\commentDTO;
 require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/comment.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/login.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/logout.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/DTO/commentDTO.php';
 
 class Controller{
     /**
@@ -47,10 +52,9 @@ class Controller{
      * 
      * returns array with information of the comment.
      */
-    public function showComment(){
+    public function showComment($receptid){
         $commentGet= new comment();
-        $result= $commentGet->showComment();
-        return $result;
+        return $commentGet->showComment($receptid);
     }
     /**
      * deletes comment

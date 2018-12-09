@@ -2,6 +2,9 @@
 /**
  * registers user, nickname and password
  */
+namespace view;
+use \Controller\Controller;
+
 require_once 'classes/Comment/Controller/Controller.php';
 if(isset($_POST['register']))
 {

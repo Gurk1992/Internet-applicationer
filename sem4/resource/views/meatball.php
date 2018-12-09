@@ -1,4 +1,7 @@
-<?php session_start(); 
+<?php 
+
+session_start(); 
+
 
 $_SESSION['page']=1; 
 $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create object");
@@ -12,6 +15,7 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
     <title>Tasty Recipes</title>
     <link rel="stylesheet" type="text/css" href="/resource/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/resource/css/tastyrecipe.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type = "text/javascript" src =/recipes.js> </script>
     
@@ -23,12 +27,13 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
             <div id = "logout">
             <?php if(isset($_SESSION['user'])){ ?>
                 
-                <button id = "loggedin" class= "buttons"> Sign out <?php if(isset($_SESSION['user'])) echo $_SESSION['user']; ?></button>     
+                <button id = "loggedin" class= "buttons">Sign out <?php if(isset($_SESSION['user'])) echo $_SESSION['user']; ?></button>     
             <?php } else{?>
-            
+             
                 <form id = "login">
                 <input id = "login-name" type="text" name="username" placeholder="Username" required>
                 <input id = "login-pass" type ="password" name="password" placeholder="Password" required>
+                <input id ="login-receptid" type = "hidden" name="receptid" value="1">
                 <button id ="login-button" type ="submit" class = "buttons"> Login</button>
             <?php } ?>
                 </form>
@@ -74,24 +79,28 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
     </div>
     <div id ="comments-main" class = "comments main">
         <div class ="column-left" id ="column-left">
-            <script>
-            window.onload = getComment();</script>
+        
+        
+      
+        <div class = 'comment-box' id = 'comment-box'></div>
+        
         </div>
         <div id = "comment-right" class ="column-right">
             <?php if(isset($_SESSION['user'])){ ?>
                 <h3 class = "under-header">Leave a comment!</h3>
                 <form id ="comment" class ="comment-area">
-                <input id ="comment-receptid" type = "hidden" name="receptid" value= "1">
-                <textarea id ="comment-text" class = "comment-field" type ="textarea" name="comment" placeholder="Write your comment here" required></textarea>
+                <input id ="comment-receptid" type = "hidden" name="receptid" value="1">
+                <textarea id ="comment-text" class = "comment-field" type ="textarea"  placeholder="Write your comment here" required></textarea>
                 <div>
                 <button id = "comment-button"class = "buttons comment-button" type ="submit" name ="comment-submit"> Submit comment</button>
                 </div>
                 </form>
                 <p id = "comment-message" class='errormessage'><p>
-            
+                
             <?php } else{?>
                 <p id ="comment-outlogged">Login at the top of the page to leave a comment.</p>
             <?php } ?>
+        
         </div>
     </div>
 </body>
@@ -100,3 +109,5 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
 
 </body>
 </html>
+<?php// <input id = "refresh-id" type="hidden" value= "1">
+       // <button id ="refresh-button" class = "buttons refresh-button" type = "submit" name ="refresh-submit"> Refresh comments</button>?>

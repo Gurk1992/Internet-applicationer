@@ -2,6 +2,8 @@
 /**
  * logs in user.
  */
+namespace view;
+use \Controller\Controller;
 session_start(); 
 
 require_once 'classes/Comment/Controller/Controller.php';
@@ -19,8 +21,8 @@ if(isset($_POST['login'])){
             $contr= new Controller();
             $result= $contr -> setlogin($username, $password);
             if($result !== FALSE){
-                $_SESSION["user"]= $result;
-                echo json_encode( "$username");
+                $_SESSION["user"]= $username;
+                echo json_encode($username);
             }
             else if($result === FALSE){
                 echo json_encode(  "Invalid login information, please try again!");
