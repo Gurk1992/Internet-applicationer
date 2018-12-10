@@ -4,6 +4,7 @@ namespace Model;
 use mysql\mysql;
 
 require_once $_SERVER['DOCUMENT_ROOT']. '/classes/Comment/Integration/mysql.php';
+
 Class comment{
   
     /**

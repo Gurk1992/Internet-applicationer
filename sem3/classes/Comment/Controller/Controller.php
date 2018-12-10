@@ -3,6 +3,7 @@ namespace Controller;
 
 use Model\comment;
 use Model\login;
+use DTO\commentDTO;
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/comment.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/classes/Comment/Model/login.php';
@@ -54,8 +55,8 @@ class Controller{
      */
     public function showComment(){
         $commentGet= new comment();
-        $result= $commentGet->showComment();
-        return $result;
+        return $commentGet->showComment();
+         
     }
     /**
      * deletes comment

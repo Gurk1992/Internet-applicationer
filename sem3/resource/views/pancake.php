@@ -78,7 +78,12 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
     </div>
     <div class = "comments main">
         <div class ="column-left">
-            <?php include "commentshow.php" ?>
+            <?php include "commentshow.php";
+           
+               
+            
+            ?>
+        
         </div>
         <div class ="column-right">
             <?php
