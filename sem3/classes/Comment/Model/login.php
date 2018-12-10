@@ -12,17 +12,19 @@ class login{
    
     /**
      * constructor sets username to private username and password to private password.
+     * @param username of current user
+     * @param password password of current user
      */
     public function __construct($username, $password){
        $this->username = $username;
        $this->password= $password;
     }
+
    /**
     * Login function, uses Mysql  and checks result from database.
     *
-    * returns Boolean True if succesfully logged in otherwise false.
+    * @return boolean True if succesfully logged in otherwise false.
     */
-    
     public function loginAttempt(){
         $mysql = new mysql();
         $result= $mysql->login($this->username);
@@ -38,7 +40,7 @@ class login{
     /**
      * Registers user, uses mysql and checks result from sql query.
      * 
-     * returns boolean true if registered otherwise false
+     * @return boolean true if registered otherwise false
      */
     public function registerAttempt(){
         

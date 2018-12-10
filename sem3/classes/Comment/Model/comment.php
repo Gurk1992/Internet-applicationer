@@ -9,11 +9,11 @@ Class comment{
   
     /**
      * Function that stores a specific comment
-     * com is the text of the post 
-     * username is the username that posted it.
-     * receptid is on which page the post was made.
+     * @param com is the text of the post 
+     * @param username is the username that posted it.
+     * @param receptid is on which page the post was made.
      * 
-     * returns boolean, true if comment was deleted otherwise false.
+     * @returns boolean, true if comment was deleted otherwise false.
      */
     public function storeComment($com, $username, $receptId ){
         $mysql = new mysql();
@@ -21,9 +21,9 @@ Class comment{
     }
     /**
      * Function that deletes a specific comment
-     * postid is the Id of the post that gets deleted
+     * @param postid is the Id of the post that gets deleted
      * 
-     * returns boolean true if comment was deleted otherwise false.
+     * @return boolean true if comment was deleted otherwise false.
      */
     public function deleteComment($postid){
         $mysql = new mysql();
@@ -32,6 +32,7 @@ Class comment{
     }
     /**
      * FUnction that extracts all comments from the database
+     * @return array of commentDTO with all comments in it.
      */
     public function showComment(){
         $mysql= new mysql();

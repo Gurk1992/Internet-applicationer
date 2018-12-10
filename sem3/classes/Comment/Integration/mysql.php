@@ -6,30 +6,22 @@ require_once $_SERVER['DOCUMENT_ROOT']. '/classes/Comment/DTO/commentDTO.php';
 
 class mysql{
  private $conn = null;
+
+ /**
+  * constructor creates a connection to the database.
+  */
 public function __construct(){
      $this->conn= new \mysqli("localhost","root","cjopg123","myDB");
-// check connection
+
 if($this->conn->connect_error){
     die("Connection failed: " . $this->conn->connect_error);
 }
  }
 /**
  * querys database and returns result.
- * return array of info
+ * @return commentDTO with user information
  */
-/*
- public function query(){
-    $sql = "SELECT postid,receptId, username, text FROM comments";
-    $query= $this->conn->query($sql);
-    $row = $query->fetch_assoc();
-    $comments = array();
-    while($row = $query->fetch_assoc()){
-        $comments[] = new commentDTO($row['postid'], $row['receptId'], $row['username'], $row['text']);
-    }
-    
-    return $comments;
 
- }*/
  public function query(){
     $comments = array();
     $sql = "SELECT * FROM comments";
@@ -45,7 +37,8 @@ if($this->conn->connect_error){
 }
  /**
   * fetches user details
-  * Returns array of user details (password, accountname etc)
+  * @param username of login attempt
+  * @return array of user details (password, accountname etc)
   */
  public function login($username){
      $sql= "SELECT * FROM login WHERE username=?";
@@ -59,7 +52,9 @@ if($this->conn->connect_error){
  
  /**
   * Inserts account name and password in db
-  * returns True /False depending on if statement was successfull or not.
+  * @param username of login attempt
+  * @param password of register attempt
+  * @return True /False depending on if database statement was successfull or not.
   */
  
  public function register($username, $password){
@@ -71,7 +66,10 @@ if($this->conn->connect_error){
  }
  /**
   * Inserts comment text, username, and what recept id into db
-  * returns True /False depending on if statement was successfull or not.
+  * @param receptid of currentd comment made
+  * @param username of user that made the comment
+  * @param com the text of the sent in comment
+  * @return boolean True /False depending on if database statement was successfull or not.
   */
  public function comment($receptId, $username,$com){
     $sql = "INSERT INTO comments(receptId, username, text) VALUES(?, ?, ?)";
@@ -82,7 +80,8 @@ if($this->conn->connect_error){
  }
  /**
   * Deletes comment that matches postid in db.
-  * returns True /False depending on if statement was successfull or not.
+  * @param postid the postid of the comment to delete.
+  * @return boolean True /False depending on if statement was successfull or not.
   */
  public function deleteComment ($postid){
     $sql = "DELETE FROM comments WHERE postid=?";
