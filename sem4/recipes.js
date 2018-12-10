@@ -1,19 +1,16 @@
 $(document).ready(function () {
 
-getComment($("#comment-receptid").val());
+
     // logs user in
 $("form#login").submit(function (event) {
     event.preventDefault();
-    
     var data = {
         login: "login",
         username: $('#login-name').val(),
         password: $('#login-pass').val(),
         receptid: $('#login-receptid').val(),
     };
-    
         $.ajax({
-        
         type: 'POST',
         url : '/do-login.php',
         data : data,
@@ -36,47 +33,42 @@ $("form#login").submit(function (event) {
         });
 
 //posts comment
-        $('body').on('submit', 'form#comment',function(event){
-    event.preventDefault();
+    $('body').on('submit', 'form#comment',function(event){
+        event.preventDefault();
     
-    var data = {
-        commentsubmit: "comment-submit",
-        receptId: $('#comment-receptid').val(),
-        comment: $('textarea#comment-text').val(),
-    };
-    console.log(data.receptId);
-    console.log(data.comment);
-    
-        $.ajax({
-        
+        var data = {
+            commentsubmit: "comment-submit",
+            receptId: $('#comment-receptid').val(),
+            comment: $('textarea#comment-text').val(),
+        };   
+    $.ajax({
         type: 'POST',
         url : '/do-comment.php',
         data : data,
-        
-            success : function(re){
-                console.log(re);
-                $("#comment-message").text(re);
-                getComment(data.receptId);
-                }
-            });
+        success : function(re){
+            console.log(re);
+            $("#comment-message").text(re);
+            getComment(data.receptId);
+            }
         });
+    });
 
     // loggs out user.
     $('body').on('click','#loggedin', function(event){
-    event.preventDefault();
-    
-    
+        event.preventDefault();
         $.ajax({
-        
-        type: 'GET',
-        url : '/do-logout.php',
-    
+            type: 'GET',
+            url : '/do-logout.php',
             success : function(re){
                 window.location.href = '/index.php';
-                }
-            });
-        }); 
-
+            }
+        });
+    }); 
+        // Calls comment function when page loads.
+        getComment($("#login-receptid").val());
+        //calls comment function when user is logged in, for when user refreshes website ..
+        getComment($("#comment-receptid").val());
+        // gets comments from database and calls addEntry for each comment.
         function getComment(id){
             $.ajax({
              type: 'post',
@@ -94,7 +86,7 @@ $("form#login").submit(function (event) {
             });
         }
         
-          // adds comment
+          //Creates and shows comments on the webiste.
           function addEntry(comment){
             
             if (removeQuotes(comment.username) === removeQuotes(getNickName())) {
@@ -109,7 +101,7 @@ $("form#login").submit(function (event) {
            
                
             }
-            //DELETE comment
+            //DELETE specific comment
              function deleteComment(){
                 var data = {
                     postid: $('#postid').val(),

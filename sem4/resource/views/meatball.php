@@ -103,11 +103,10 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
         
         </div>
     </div>
+    
 </body>
 </html>
 
 
 </body>
 </html>
-<?php// <input id = "refresh-id" type="hidden" value= "1">
-       // <button id ="refresh-button" class = "buttons refresh-button" type = "submit" name ="refresh-submit"> Refresh comments</button>?>

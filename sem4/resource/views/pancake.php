@@ -29,6 +29,7 @@ $xml =simplexml_load_file("../../cookbook.xml") or die("Error: Cannot create obj
             <form id = "login">
             <input id = "login-name" type="text" name="username" placeholder="Username" required>
             <input id = "login-pass" type ="password" name="password" placeholder="Password" required>
+            <input id ="login-receptid" type = "hidden" name="receptid" value="0">
             <button id ="login-button" type ="submit" class = "buttons"> Login</button>
             <?php } ?>
             </form>
