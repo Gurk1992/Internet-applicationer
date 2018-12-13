@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-
-    // logs user in
+/**
+ * Logs user in!
+ * calls getComment to refresh comment section with delete keys.
+ */
 $("form#login").submit(function (event) {
     event.preventDefault();
     var data = {
@@ -33,6 +35,12 @@ $("form#login").submit(function (event) {
         });
 
 //posts comment
+/**
+ * Posts users comment!
+ * Done when submit comment is pressed
+ * 
+ * calls getcomment to update comment section
+ */
     $('body').on('submit', 'form#comment',function(event){
         event.preventDefault();
     
@@ -53,7 +61,11 @@ $("form#login").submit(function (event) {
         });
     });
 
-    // loggs out user.
+   
+    /**
+     * logs user out
+     * Done when user presses loggout button
+     */
     $('body').on('click','#loggedin', function(event){
         event.preventDefault();
         $.ajax({
@@ -64,11 +76,17 @@ $("form#login").submit(function (event) {
             }
         });
     }); 
+    
         // Calls comment function when page loads.
         getComment($("#login-receptid").val());
         //calls comment function when user is logged in, for when user refreshes website ..
         getComment($("#comment-receptid").val());
+
         // gets comments from database and calls addEntry for each comment.
+        /**
+         * Gets comments from database!
+         * calls addEntry
+         */
         function getComment(id){
             $.ajax({
              type: 'post',
@@ -87,13 +105,18 @@ $("form#login").submit(function (event) {
         }
         
           //Creates and shows comments on the webiste.
+          /**
+           * adds one single comment into dom
+           * @param comment data for one single comment
+           * calls deleteComment if delete button is pressed.
+           */
           function addEntry(comment){
             
             if (removeQuotes(comment.username) === removeQuotes(getNickName())) {
-               $("<p id ='delete' class ='delete-form>").appendTo($("#comment-box"));
+               $("<form id ='delete' class ='delete-form>").appendTo($("#comment-box"));
                 $("<input id='postid' type='hidden' name='postid' value ="+removeQuotes(comment.postid)+">").appendTo($("#comment-box"));
                 $("<input id='receptid' type='hidden' name='receptid' value ="+removeQuotes(comment.receptId)+">").appendTo($("#comment-box"));
-                $("<button id = 'delete' class = 'buttons' name = 'comment-delete' type = 'submit'> Delete </button></p>").one("click", deleteComment).appendTo($("#comment-box"));
+                $("<button id = 'delete' class = 'buttons' name = 'comment-delete' type = 'submit'> Delete </button></form>").one("click", deleteComment).appendTo($("#comment-box"));
                
             } 
             $("<p class ='comment-user' id = 'commet-user'> "+removeQuotes(comment.username) +" commented:</p>").appendTo($("#comment-box"));      
@@ -101,7 +124,10 @@ $("form#login").submit(function (event) {
            
                
             }
-            //DELETE specific comment
+
+            /**
+             * deletes one specific comment.
+             */
              function deleteComment(){
                 var data = {
                     postid: $('#postid').val(),
@@ -123,11 +149,18 @@ $("form#login").submit(function (event) {
                     }
                     });
         }
-            //removes quotes
+            /**
+             * function to remove qoutes from string.
+             * @param str the string to delete qoutes from
+             * @return str without qoutes.
+             */
             function removeQuotes(str) {
                 return str.replace(/\"/g, "");
             }
-            //gets nickname from dom
+            /**
+             * gets nickname from dom
+             * @return current nickname of logged in user from dom.
+             */
             function getNickName() {
             
                 return $("#loggedin").text().substring(9);
