@@ -7,7 +7,7 @@ private $comment_id;
 private $username;
 private $text;
 
-public function construct($comment_id, $username, $text){
+public function __construct($comment_id, $username, $text){
     $this->comment_id = $comment_id;
     $this->username = $username;
     $this->text = $text;
